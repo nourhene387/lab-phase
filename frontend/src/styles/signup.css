@@ -1,0 +1,98 @@
+.sign-up-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-top: 200px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-left: 20%;
+}
+.sign-up-box{
+   
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+     gap:20px
+
+}
+
+.signup_input-group {
+    display: grid;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+ 
+    gap:10px
+}
+
+.gender-input{
+    display: flex;
+    flex-direction: row;
+  
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+}
+
+.terms {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.sign-up-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.sign-up-btn:disabled {
+    background-color: #aaa;
+}
+
+.already-account {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.already-account a {
+    color: #007BFF;
+}
+.image-preview {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.image-preview img {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    max-width: 150px;
+    height: auto;
+}
+.handle-photo{
+    display: flex;
+}
+.login-section{
+   margin-top: 20px; 
+}

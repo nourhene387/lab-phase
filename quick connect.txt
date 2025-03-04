@@ -1,0 +1,5 @@
+ Name :
+Quick Connect: A Real-Time Chat Application
+description:
+Quick Connect is a real-time chat application designed to facilitate instant communication between users. The platform will feature live text messaging, user authentication, and real-time notifications. It aims to provide an easy-to-use and interactive environment for users to connect and chat with others in real-time, regardless of location.
+

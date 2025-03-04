@@ -1,0 +1,60 @@
+/* NoChatSelected.css */
+
+/* Wrapper for the No Chat Selected state */
+.no-chat-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  background-color: rgba(255, 255, 255, 0.5); /* Transparent background */
+}
+
+.no-chat-container {
+  max-width: 36rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Icon wrapper */
+.no-chat-icon-wrapper {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  background-color: rgba(0, 0, 255, 0.1); /* Light background color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: bounce 1s infinite;
+}
+
+.no-chat-icon {
+  width: 2rem;
+  height: 2rem;
+  color: #1D4ED8; /* Tailwind's primary blue */
+}
+
+/* Text styling */
+.no-chat-heading {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.no-chat-description {
+  color: rgba(0, 0, 0, 0.6); /* Light grey text */
+}
+
+/* Bounce animation */
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

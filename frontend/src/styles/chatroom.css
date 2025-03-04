@@ -1,0 +1,149 @@
+/* Chatroom container */
+.chatroom-container {
+     width: 80vw;
+     height: 90vh; /* Ensures the container takes up most of the screen */
+     margin: 5vh auto;
+     border-radius: 10px;
+     background-color: #fff;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+     display: flex;
+     flex-direction: column;
+     overflow: hidden; /* Prevents overflow */
+   }
+   
+   /* Chat header styling */
+   .chatroom-header {
+     background-color: #3a3a3a;
+     color: white;
+     padding: 15px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     font-size: 1.2rem;
+   }
+   
+   .chat-header-button {
+     background: none;
+     border: none;
+     color: white;
+     font-size: 1.4rem;
+     cursor: pointer;
+   }
+   
+   /* Messages list */
+   .messages-list {
+     flex-grow: 1;
+     overflow-y: auto; /* Allows scrolling of messages */
+     padding: 20px;
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+   }
+   
+   /* Message container */
+   .send_message,
+   .receive_message {
+     max-width: 70%;
+     padding: 10px 15px;
+     border-radius: 20px;
+     margin-bottom: 10px;
+     position: relative;
+   }
+   
+   .send_message {
+     align-self: flex-end;
+     background-color: #2f9e44;
+     color: white;
+     border-top-right-radius: 0;
+   }
+   
+   .receive_message {
+     align-self: flex-start;
+     background-color: #f1f1f1;
+     color: #333;
+     border-top-left-radius: 0;
+   }
+   
+   .message-bubble {
+     word-wrap: break-word;
+   }
+   
+   /* Message actions (Edit/Delete) */
+   .message-actions {
+     position: absolute;
+     top: 5px;
+     right: 10px;
+     display: flex;
+     gap: 10px;
+   }
+   
+   .action-button {
+     background: none;
+     border: none;
+     color: #ff6347;
+     cursor: pointer;
+     font-size: 18px;
+   }
+   
+   /* Edit message */
+   .edit-message {
+     display: flex;
+     gap: 10px;
+     margin-top: 10px;
+     align-items: center;
+   }
+   
+   .edit-message input {
+     flex-grow: 1;
+     padding: 8px 12px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     font-size: 14px;
+   }
+   
+   .update-button {
+     background-color: #2f9e44;
+     color: white;
+     padding: 8px 12px;
+     border-radius: 5px;
+     border: none;
+     cursor: pointer;
+   }
+   
+   .update-button:hover {
+     background-color: #267d2d;
+   }
+   
+   /* Message input field */
+   .message-input {
+     padding: 10px 20px;
+     background-color: #f9f9f9;
+     border-top: 1px solid #ddd;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+   }
+   
+   .input-field {
+     width: 90%;
+     padding: 10px;
+     border: 1px solid #ddd;
+     border-radius: 20px;
+     font-size: 16px;
+     margin-right: 10px;
+   }
+   
+   .send-button {
+     background-color: #2f9e44;
+     color: white;
+     padding: 12px 20px;
+     border-radius: 50%;
+     border: none;
+     cursor: pointer;
+     font-size: 18px;
+   }
+   
+   .send-button:hover {
+     background-color: #267d2d;
+   }
+   
