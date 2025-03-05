@@ -6,9 +6,9 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const http = require('http'); // Import the http module
 const socketIo = require('socket.io'); // Import socket.io
-
+ const path=require('path');
 const Port = process.env.Port;
-
+ const __dirname=path.resolve();
 const app = express();
 
 // Create HTTP server and pass the Express app
@@ -50,6 +50,13 @@ require('./db/connect')();
 // Set up routes
 app.use('/api/users', userRoutes);
 app.use('/api/messages', msgRoutes);
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "build", "index.html"));
+  });
+}
 
 // Start the server
 server.listen(Port, () => {
