@@ -1,15 +1,19 @@
-const Router = require('express').Router();
-const Controllers = require('../controllers/msgControllers');
-const{ protection}=require('../middlewares/auth_middlewares')
+// msgRout.js
 
-// POST route to send a message
-Router.get('/hello',(req, res)=>{
-    return res.status(200).json({message:"hello from message route"})
-})
-Router.get('/:id', protection,Controllers.getMsgs); 
-Router.post('/send/:user_id', protection, Controllers.sendMessage);
+import express from 'express';
+import * as Controllers from '../controllers/msgControllers.js';
+import { protection } from '../middlewares/auth_middlewares.js';
 
-Router.put('/update/:msg_id',protection,Controllers.updateMsgs)
-Router.delete('/delete/:msg_id',protection,Controllers.DeleteMessage)
-// Export Router
-module.exports = Router;
+const router =express. Router();
+
+// Define your routes
+router.get('/hello', (req, res) => {
+  return res.status(200).json({ message: 'Hello from message route' });
+});
+
+router.get('/:id', protection, Controllers.getMsgs);
+router.post('/send/:user_id', protection, Controllers.sendMessage);
+router.put('/update/:msg_id', protection, Controllers.updateMsgs);
+router.delete('/delete/:msg_id', protection, Controllers.DeleteMessage);
+
+export default router;  // Default export
