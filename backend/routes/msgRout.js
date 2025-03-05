@@ -1,7 +1,7 @@
 // msgRout.js
 
 import express from 'express';
-import * as Controllers from '../controllers/msgControllers.js';
+import  Controllers from '../controllers/msgControllers.js';
 import { protection } from '../middlewares/auth_middlewares.js';
 
 const router =express. Router();
