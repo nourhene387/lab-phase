@@ -4,7 +4,7 @@ import { getReceiverSocketId } from '../db/socket';
 import { io } from '../db/socket';
 
 // Post message by sender id
-export const sendMessage = async (req, res) => {
+const sendMessage = async (req, res) => {
   try {
     const { text, image } = req.body;
     const { user_id: receiverId } = req.params;
@@ -32,7 +32,7 @@ export const sendMessage = async (req, res) => {
 };
 
 // Get all messages by sender id
-export const getMsgs = async (req, res) => {
+ const getMsgs = async (req, res) => {
   try {
     const { id: userTochatId } = req.params;
     const myId = req.user._id;
@@ -50,7 +50,7 @@ export const getMsgs = async (req, res) => {
 };
 
 // Update message by id
-export const updateMsgs = async (req, res) => {
+const updateMsgs = async (req, res) => {
   try {
     const { id } = req.user;
     console.log("userauth:", id);
@@ -78,7 +78,7 @@ export const updateMsgs = async (req, res) => {
 };
 
 // Delete message by id
-export const DeleteMessage = async (req, res) => {
+ const DeleteMessage = async (req, res) => {
   try {
     const { msg_id } = req.params;
 
