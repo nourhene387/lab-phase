@@ -95,3 +95,10 @@ export const DeleteMessage = async (req, res) => {
     return res.status(500).json({ message: "Server Error", err });
   }
 };
+const Controllers = {
+  sendMessage,
+  getMsgs,
+  updateMsgs,
+  DeleteMessage
+};
+ export default Controllers
