@@ -1,10 +1,8 @@
-// msgRout.js
-
 import express from 'express';
-import  Controllers from '../controllers/msgControllers';
-import { protection } from '../middlewares/auth_middlewares';
+import Controllers from '../controllers/msgControllers.js';  // Corrected import
+import { protection } from '../middlewares/auth_middlewares.js';  // Corrected import
 
-const router =express. Router();
+const router = express.Router();
 
 // Define your routes
 router.get('/hello', (req, res) => {
