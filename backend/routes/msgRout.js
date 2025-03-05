@@ -1,5 +1,5 @@
 import express from 'express';
-import Controllers from '../controllers/msgControllers.js';  // Corrected import
+import Controllers from '../controllers/msgcontrollers.js';  // Corrected import
 import { protection } from '../middlewares/auth_middlewares.js';  // Corrected import
 
 const router = express.Router();
