@@ -1,8 +1,8 @@
-import { Router } from 'express';  // Import Router from 'express'
+import express from 'express';  // Import Router from 'express'
 import * as Controllers from '../controllers/msgControllers';  // Import everything from msgControllers
 import { protection } from '../middlewares/auth_middlewares';  // Import protection middleware
 
-const Router = Router();
+const Router = express.Router();
 
 // POST route to send a message
 Router.get('/hello', (req, res) => {
