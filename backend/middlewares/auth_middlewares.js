@@ -1,14 +1,16 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/user_model');
-const cookies= require("cookie-parser")
+// /src/backend/middlewares/auth_middlewares.js
+
+import jwt from 'jsonwebtoken';
+import User from '../models/user_model.js'; // Use ES6 import for User model
+import cookies from 'cookie-parser'; // Use ES6 import for cookie-parser
+
 /********** */
-exports.protection = async (req, res, next) => {
+export const protection = async (req, res, next) => {
     try {
         // The token will now be sent in the Authorization header (Bearer Token)
-       // const token = req.header('Authorization')?.split(' ')[1]; // Assumes "Authorization: Bearer <token>"
- //const token =req.header("x-auth")
- const token = req.cookies.token;
- console.log("Token from cookies:", token);
+        const token = req.cookies.token; // Get token from cookies
+        console.log("Token from cookies:", token);
+        
         if (!token) {
             return res.status(401).json({ message: 'Unauthorized: No token provided' });
         }
@@ -18,7 +20,7 @@ exports.protection = async (req, res, next) => {
 
         // Find the user by decoded token ID (user's ID from JWT payload)
         const user = await User.findById(decoded.user.id).select('-password');
-       
+        
         if (!user) {
             return res.status(401).json({ message: 'Unauthorized: User not found' });
         }
