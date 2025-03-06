@@ -268,6 +268,6 @@ const Usercontrollers = {
     getcontact,
     removeContact,
     getByID,
-    update
+    updateuser
 };
 export default Usercontrollers;
