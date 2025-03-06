@@ -1,30 +1,41 @@
-const Router=require('express').Router();
+// /src/backend/routes/userRoutes.js
 
-const UsersControllers=require('../controllers/Usercontrollers')
-const {registerRules,LoginRules,validator}=require('../middlewares/validator')
-const{ protection}=require('../middlewares/auth_middlewares')
+import { Router } from 'express';
+import UsersControllers from '../controllers/Usercontrollers.js';
+import { registerRules, LoginRules, validator } from '../middlewares/validator.js';
+import { protection } from '../middlewares/auth_middlewares.js';
+
 /****************** */
 // Create a new user
-Router.get('/hello',(req,res)=>{
-    return res.status(200).json({message:"hello from server"})
-})
-// create a new user(sign up)
-Router.post('/register',  registerRules(), validator, UsersControllers.postUsers);
+const router = Router();
+
+router.get('/hello', (req, res) => {
+    return res.status(200).json({ message: "hello from server" });
+});
+
+// Create a new user (sign up)
+router.post('/register', registerRules(), validator, UsersControllers.postUsers);
 
 // Login (sign in)
-Router.post('/login',LoginRules(), validator, UsersControllers.getUser)
-//get aLL users 
-Router.get('/all',protection,UsersControllers.getUsers)
-// get user by name 
-Router.post('/search',protection,UsersControllers.getUserByName)
-//Router.put("/profile",protection,UsersControllers.addprofilePic)
-Router.put ("/update", protection,UsersControllers.updateProfile)
-Router.put('/add-to-list/:friendId', protection,UsersControllers.addtolist)
-Router.get("/contact",protection,UsersControllers.getcontact)
-Router.post('/remove-contact',protection,UsersControllers.removeContact)
-Router.get("/contact/:id",protection,UsersControllers.getByID)
-Router.put('/updateprof',protection,UsersControllers.updateuser)
-Router.get("/check", protection, (req, res) => {
-    res.json({user: req.user})
-})
-module.exports=Router;
+router.post('/login', LoginRules(), validator, UsersControllers.getUser);
+
+// Get all users
+router.get('/all', protection, UsersControllers.getUsers);
+
+// Get user by name
+router.post('/search', protection, UsersControllers.getUserByName);
+
+// Router.put("/profile", protection, UsersControllers.addProfilePic);
+router.put("/update", protection, UsersControllers.updateProfile);
+router.put('/add-to-list/:friendId', protection, UsersControllers.addToList);
+router.get("/contact", protection, UsersControllers.getContact);
+router.post('/remove-contact', protection, UsersControllers.removeContact);
+router.get("/contact/:id", protection, UsersControllers.getByID);
+router.put('/updateprof', protection, UsersControllers.updateUser);
+
+// Check user
+router.get("/check", protection, (req, res) => {
+    res.json({ user: req.user });
+});
+
+export default router;
