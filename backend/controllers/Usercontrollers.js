@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 import cloudinary from '../db/cloudinary.js';
 
 // Post user (Register)
-export const postUsers = async (req, res) => {
+ const postUsers = async (req, res) => {
     try {
         const { username, email, password, confirmEmail, confirmPassword, phone, sexe, dateofbirth } = req.body;
 
@@ -39,7 +39,7 @@ export const postUsers = async (req, res) => {
 };
 
 // Get user by email (Login)
-export const getUser = async (req, res) => {
+ const getUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -70,7 +70,7 @@ export const getUser = async (req, res) => {
 };
 
 // Get all users
-export const getUsers = async (req, res) => {
+ const getUsers = async (req, res) => {
     try {
         const { id } = req.user;
         console.log("userauth:", id);
@@ -85,7 +85,7 @@ export const getUsers = async (req, res) => {
 };
 
 // Get user by username
-export const getUserByName = async (req, res) => {
+ const getUserByName = async (req, res) => {
     try {
         const { id } = req.user;
         console.log("userauth:", id);
@@ -105,7 +105,7 @@ export const getUserByName = async (req, res) => {
 };
 
 // Add profile picture
-export const updateProfile = async (req, res) => {
+ const updateProfile = async (req, res) => {
     try {
         const { profilePic } = req.body;
         const { id } = req.user;
@@ -129,7 +129,7 @@ export const updateProfile = async (req, res) => {
 };
 
 // Add to contact list
-export const addtolist = async (req, res) => {
+ const addtolist = async (req, res) => {
     try {
         const { id } = req.user;
         console.log("userauth:", id);
@@ -159,7 +159,7 @@ export const addtolist = async (req, res) => {
 };
 
 // Get my contact list
-export const getcontact = async (req, res) => {
+ const getcontact = async (req, res) => {
     try {
         const { id } = req.user;
         console.log("userauth:", id);
@@ -183,7 +183,7 @@ export const getcontact = async (req, res) => {
 };
 
 // Remove contact
-export const removeContact = async (req, res) => {
+ const removeContact = async (req, res) => {
     try {
         const { id } = req.user;
         console.log("userauth:", id);
@@ -211,7 +211,7 @@ export const removeContact = async (req, res) => {
 };
 
 // Get user by ID
-export const getByID = async (req, res) => {
+ const getByID = async (req, res) => {
     try {
         const { id } = req.params;
         const user = await User.findById(id);
@@ -229,7 +229,7 @@ export const getByID = async (req, res) => {
 };
 
 // Update user information
-export const updateuser = async (req, res) => {
+ const updateuser = async (req, res) => {
     try {
         const { id } = req.user;
         console.log("User ID from authentication:", id);
@@ -258,3 +258,16 @@ export const updateuser = async (req, res) => {
         return res.status(500).json({ message: "Server error" });
     }
 };
+const Usercontrollers = {
+    postUsers,
+    getUser,
+    getUsers,
+    getUserByName,
+    updateProfile,
+    addtolist,
+    getcontact,
+    removeContact,
+    getByID,
+    update
+};
+export default Usercontrollers;
