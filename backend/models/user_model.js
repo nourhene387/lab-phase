@@ -1,8 +1,9 @@
-const { now } = require('moment');
-const mongoose = require('mongoose');
-//
-const userSchema = new mongoose.Schema({
+// /src/backend/models/user_model.js
 
+import mongoose from 'mongoose';
+
+// User schema definition
+const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true
@@ -38,7 +39,6 @@ const userSchema = new mongoose.Schema({
   profilePic: {
     type: String,
     default: ""
-
   },
   contact: [{
     type: mongoose.Schema.Types.ObjectId, // Reference to the User model
@@ -49,4 +49,6 @@ const userSchema = new mongoose.Schema({
     default: Date.now // This sets the default value to the current date and time
   }
 });
-module.exports = mongoose.model('User', userSchema)
+
+// Export the model using default export
+export default mongoose.model('User', userSchema);
