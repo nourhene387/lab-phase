@@ -1,9 +1,12 @@
-const bcrypt = require('bcryptjs');
-const User = require('../models/user_model');
-const jwt = require('jsonwebtoken');
-const cloudinary = require('../db/cloudinary.js')
+// /src/backend/controllers/Usercontrollers.js
+
+import bcrypt from 'bcryptjs';
+import User from '../models/user_model.js';
+import jwt from 'jsonwebtoken';
+import cloudinary from '../db/cloudinary.js';
+
 // Post user (Register)
-exports.postUsers = async (req, res) => {
+export const postUsers = async (req, res) => {
     try {
         const { username, email, password, confirmEmail, confirmPassword, phone, sexe, dateofbirth } = req.body;
 
@@ -12,9 +15,7 @@ exports.postUsers = async (req, res) => {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-
         const hashedPassword = await bcrypt.hash(password, 10);
-
 
         user = new User({
             username,
@@ -23,14 +24,11 @@ exports.postUsers = async (req, res) => {
             phone,
             sexe,
             dateofbirth
-
         });
-
 
         await user.save();
         const payload = { user: { id: user.id, username: user.username } };
         const token = jwt.sign(payload, process.env.jwtSecret, { expiresIn: '1d' });
-
 
         res.status(200).json({ message: "User created successfully", user, token });
 
@@ -41,29 +39,25 @@ exports.postUsers = async (req, res) => {
 };
 
 // Get user by email (Login)
-exports.getUser = async (req, res) => {
+export const getUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Validate fields
         if (!email || !password) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
         let user = await User.findOne({ email });
 
-        // Check if user exists
         if (!user) {
             return res.status(400).json({ message: 'User does not exist' });
         }
 
-        // Compare passwords
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        // Generate JWT token
         const payload = { user: { id: user.id, username: user.username } };
         const token = jwt.sign(payload, process.env.jwtSecret, { expiresIn: '1d' });
 
@@ -76,11 +70,10 @@ exports.getUser = async (req, res) => {
 };
 
 // Get all users
-exports.getUsers = async (req, res) => {
+export const getUsers = async (req, res) => {
     try {
-        const { id } = req.user
-        //const authuser=await User.find({id})
-        console.log("userauth:", id)
+        const { id } = req.user;
+        console.log("userauth:", id);
 
         const users = await User.find();
         return res.status(200).json(users);
@@ -92,12 +85,10 @@ exports.getUsers = async (req, res) => {
 };
 
 // Get user by username
-exports.getUserByName = async (req, res) => {
-
+export const getUserByName = async (req, res) => {
     try {
-        const { id } = req.user
-        //const authuser=await User.find({id})
-        console.log("userauth:", id)
+        const { id } = req.user;
+        console.log("userauth:", id);
         const { username } = req.body;
         const user = await User.find({ username });
 
@@ -112,19 +103,19 @@ exports.getUserByName = async (req, res) => {
         return res.status(500).json({ message: 'Server Error', err });
     }
 };
-//add profilepic
-exports.updateProfile = async (req, res) => {
+
+// Add profile picture
+export const updateProfile = async (req, res) => {
     try {
         const { profilePic } = req.body;
-        const { id } = req.user
+        const { id } = req.user;
         const user = await User.findById(id);
         if (!user) {
             return res.status(400).json({ message: 'User not found' });
         }
 
-        // Update the user's profile picture
-        user.profilePic = profilePic; // Assuming you are storing the image URL in the 'profilePic' field
-        await user.save(); // Save the updated user document
+        user.profilePic = profilePic;
+        await user.save();
 
         return res.status(200).json({
             message: 'Profile picture updated successfully',
@@ -135,18 +126,16 @@ exports.updateProfile = async (req, res) => {
         console.error(err);
         return res.status(500).json({ message: 'Server Error', err });
     }
+};
 
-}
-//add  to contact list 
-exports.addtolist = async (req, res) => {
+// Add to contact list
+export const addtolist = async (req, res) => {
     try {
         const { id } = req.user;
         console.log("userauth:", id);
-        const { friendId } = req.params; // Get the friendId from the URL parameters
+        const { friendId } = req.params;
 
         const my_account = await User.findById(id);
-
-        // Use _id to query the User model
         const user = await User.findOne({ _id: friendId });
         if (!user) {
             return res.status(400).json({ message: 'User not found' });
@@ -154,122 +143,105 @@ exports.addtolist = async (req, res) => {
 
         const contact = my_account.contact;
 
-        // Check if the contact already exists in the list
         const existId = contact.includes(friendId);
         if (existId) {
             return res.status(400).json({ message: 'Contact already exists', user });
         }
 
-
-        // Add the user ID to the contact list
         contact.push(friendId);
-
-        // Save the updated user contact list
         await my_account.save();
-
-        //console.log("Updated user:", my_account);
 
         return res.status(200).json({ message: 'Contact added successfully', my_account });
     } catch (err) {
         console.error(err);
         return res.status(500).json({ message: 'Server Error', err });
     }
-}
-//get my contact list 
-exports.getcontact = async (req, res) => {
+};
+
+// Get my contact list
+export const getcontact = async (req, res) => {
     try {
         const { id } = req.user;
         console.log("userauth:", id);
-        const user = await User.findById(id).populate("contact")
-        console.log(user)
-          if (!user) {
-            return res.status(400).json({ message: 'User not found' });
-        }
-        //console.log("user found")
-         const contacts= user.contact;
-        //   console.log("contact",contacts)
-          if(contacts.length===0){
-            return res.status(200).json({message:'contact list is empty'})
-          }
-           return res.status (201).json({message:'contact list', contacts})
-    }
-    catch (err) {
-        console.error(err);
-        return res.status(500).json({ message: 'Server Error', err });
-    }
-}
-exports.removeContact = async (req, res) => {
-    try {
-        const { id } = req.user;
-        console.log("userauth:", id);
-        const user = await User.findById(id)
-        const {  contactId } = req.body; // Expecting userId (the logged-in user) and contactId (the contact to remove)
- 
-  console.log(contactId)
-   
+        const user = await User.findById(id).populate("contact");
         if (!user) {
             return res.status(400).json({ message: 'User not found' });
         }
 
-        // Check if contact exists in the user's contact list
-        const contactIndex = user.contact.indexOf(contactId);
-         console.log(contactIndex)
-        if (contactIndex === -1) {
-            return res.status(400).json({ message: 'Contact not found in the list' });
+        const contacts = user.contact;
+
+        if (contacts.length === 0) {
+            return res.status(200).json({ message: 'Contact list is empty' });
         }
 
-        // Remove contact from the contact list
-        user.contact.splice(contactIndex, 1);
+        return res.status(201).json({ message: 'Contact list', contacts });
 
-        // Save the updated user
-        await user.save();
-
-        return res.status(200).json({ message: 'Contact removed successfully', user });
-        
     } catch (err) {
         console.error(err);
         return res.status(500).json({ message: 'Server Error', err });
     }
 };
-///
 
-exports.getByID = async (req, res) => {
+// Remove contact
+export const removeContact = async (req, res) => {
     try {
-        const { id } = req.params; // Destructure the ID from the URL params
-        const user = await User.findById(id); // Find the user by ID
+        const { id } = req.user;
+        console.log("userauth:", id);
+        const user = await User.findById(id);
+        const { contactId } = req.body;
 
-        // Check if user is found
         if (!user) {
-            return res.status(400).json({ message: "User not found" }); // Return a 400 error if the user is not found
+            return res.status(400).json({ message: 'User not found' });
         }
 
-        // Return the found user
+        const contactIndex = user.contact.indexOf(contactId);
+        if (contactIndex === -1) {
+            return res.status(400).json({ message: 'Contact not found in the list' });
+        }
+
+        user.contact.splice(contactIndex, 1);
+        await user.save();
+
+        return res.status(200).json({ message: 'Contact removed successfully', user });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Server Error', err });
+    }
+};
+
+// Get user by ID
+export const getByID = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(400).json({ message: "User not found" });
+        }
+
         return res.status(200).json(user);
 
     } catch (error) {
-        console.error(error); // Log the error for debugging purposes
-        return res.status(500).json({ message: "Server error" }); // Return a 500 error if something goes wrong on the server
+        console.error(error);
+        return res.status(500).json({ message: "Server error" });
     }
 };
-//const User = require('../models/user');  // Assuming the User model is imported here
 
-exports.updateuser = async (req, res) => {
+// Update user information
+export const updateuser = async (req, res) => {
     try {
-        // Extract user ID from authenticated user (assuming `req.user` contains authenticated user data)
         const { id } = req.user;
         console.log("User ID from authentication:", id);
 
-        // Retrieve the updated data from the request body
         const { username, email, phone, sexe, dateofbirth, profilePic } = req.body;
 
-        // Find the user by ID
         const user = await User.findById(id);
         
         if (!user) {
             return res.status(400).json({ message: 'User not found' });
         }
 
-        // Update the user fields if provided
         if (username) user.username = username;
         if (email) user.email = email;
         if (phone) user.phone = phone;
@@ -277,14 +249,12 @@ exports.updateuser = async (req, res) => {
         if (dateofbirth) user.dateofbirth = dateofbirth;
         if (profilePic) user.profilePic = profilePic;
 
-        // Save the updated user to the database
         await user.save();
 
-        // Return success response
         return res.status(200).json({ message: 'User updated successfully', user });
 
     } catch (error) {
-        console.error(error);  // Log the error for debugging purposes
-        return res.status(500).json({ message: "Server error" });  // Return 500 error if something goes wrong on the server
+        console.error(error);
+        return res.status(500).json({ message: "Server error" });
     }
 };
