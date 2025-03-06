@@ -1,8 +1,10 @@
-const { body, validationResult } = require('express-validator');
-const moment = require('moment'); // Make sure you have moment installed
+// /src/backend/validators/validation.js
+
+import { body, validationResult } from 'express-validator';
+import moment from 'moment'; // Ensure that moment is installed
 
 // Register validation rules
-const registerRules = () => {
+export const registerRules = () => {
     return [
         body('username', 'Username is required').notEmpty(),
         body('email', 'Please provide a valid email').isEmail(),
@@ -35,14 +37,13 @@ const registerRules = () => {
                 }
                 return true;
             }),
-            body('phone','phone numaber must be 8 digitals').isLength({min:8}),
-            body("sexe","sexe is required").notEmpty()
-         
+        body('phone', 'Phone number must be 8 digits').isLength({ min: 8 }),
+        body('sexe', 'Sex is required').notEmpty()
     ];
 };
 
 // Login validation rules
-const LoginRules = () => {
+export const LoginRules = () => {
     return [
         body('email', 'Please provide a valid email').isEmail(),
         body('password', 'Password must be between 6 and 20 characters, contain at least one uppercase letter, one number, and one symbol')
@@ -52,16 +53,12 @@ const LoginRules = () => {
             .matches(/[!@#$%^&*(),.?":{}|<>]/) // At least one symbol
     ];
 };
-// get all users
-
 
 // Validation middleware
-const validator = (req, res, next) => {
+export const validator = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
     next();
 };
-
-module.exports = { registerRules, LoginRules, validator };
