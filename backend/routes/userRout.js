@@ -27,11 +27,11 @@ router.post('/search', protection, UsersControllers.getUserByName);
 
 // Router.put("/profile", protection, UsersControllers.addProfilePic);
 router.put("/update", protection, UsersControllers.updateProfile);
-router.put('/add-to-list/:friendId', protection, UsersControllers.addToList);
-router.get("/contact", protection, UsersControllers.getContact);
+router.put('/add-to-list/:friendId', protection, UsersControllers.addtolist);
+router.get("/contact", protection, UsersControllers.getcontact);
 router.post('/remove-contact', protection, UsersControllers.removeContact);
 router.get("/contact/:id", protection, UsersControllers.getByID);
-router.put('/updateprof', protection, UsersControllers.updateuser);
+router.put('/updateprof', protection, UsersControllers.updateuser );
 
 // Check user
 router.get("/check", protection, (req, res) => {
