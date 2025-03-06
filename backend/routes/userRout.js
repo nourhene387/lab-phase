@@ -31,7 +31,7 @@ router.put('/add-to-list/:friendId', protection, UsersControllers.addToList);
 router.get("/contact", protection, UsersControllers.getContact);
 router.post('/remove-contact', protection, UsersControllers.removeContact);
 router.get("/contact/:id", protection, UsersControllers.getByID);
-router.put('/updateprof', protection, UsersControllers.updateUser);
+router.put('/updateprof', protection, UsersControllers.updateuser);
 
 // Check user
 router.get("/check", protection, (req, res) => {
