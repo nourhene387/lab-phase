@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className="navbar-container">
         <div className="navbar-content">
           <div className="navbar-left">
-            <Link to="/" className="navbar-logo">
+            <div className="navbar-logo">
               <div className="logo-icon">
                 <img
                   src="/images/quick_connect_logo.jpg"
@@ -30,7 +30,7 @@ const Navbar = () => {
                   style={{ width: "100px" }}
                 />
               </div>
-            </Link>
+            </div>
           </div>
 
           <div className="navbar-right">
