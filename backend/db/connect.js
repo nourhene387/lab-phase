@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Get the MongoDB URI from environment variables
-const MONGODB_URI = process.env.MONGO_URI;  // Ensure the environment variable is correctly set
+const MONGODB_URI = process.env.MongoDB_URI;  // Ensure the environment variable is correctly set
 
 // Connect to the database
 const connectDB = async () => {
