@@ -1,7 +1,7 @@
 import Message from '../models/message_models.js';
 import User from '../models/user_model.js';
 import { getReceiverSocketId } from '../db/socket';
-import { io } from '../db/socket';
+import { io } from '../db/socket.js';
 
 // Post message by sender id
 const sendMessage = async (req, res) => {
